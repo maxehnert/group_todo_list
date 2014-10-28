@@ -27,18 +27,13 @@ var task, contents;
 $('#sendMessage').on('submit', function (event){
   event.preventDefault(); //wont refresh page
     //Grab the Task Value
-    contents = $('#text').val() + '<button>x</button>';
+    contents = $('#text').val() + '<button class="remove">x</button>';
 
 
-
-//     var text = $('#text').val() + '<button>x</button>';
-//     if(text.length){
-//         $('<li />', {html: text}).appendTo('#todoList').append(task.elem)
-//     }
-//
-//
 $('ul').on('click','button' , function(el){
-    $(this).parent().remove()
+    $(this).parent().remove();
+    var q = $('#todoList li').length -0;
+    $('#counter').html(q);
 });
 
       // Create a new todo list
