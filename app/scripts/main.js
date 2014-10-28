@@ -20,7 +20,7 @@ var rendered = _.template(task_template);
 var task, contents;
 
 var icon = $('<a href="#"><img src="http://f.cl.ly/items/3F2D2J201Q2F3I072632/cross5.png"></a>').load(function() {
-  $(this).width(16).height(16).appendTo('li');
+  $(this).width(16).height(16).appendTo('#task_items');
 
 });
 
