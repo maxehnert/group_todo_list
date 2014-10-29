@@ -18,6 +18,7 @@ body {
   line-height: 30px;
   border-radius: 6px;
   padding: 0 60px 60px;
+  background-color: HSLA(180, 38%, 62%, 1);
   h1 {
     font-size: 40px;
     padding: 33% 0 0 33%;
@@ -41,10 +42,27 @@ body {
     position: relative;
     cursor: pointer;
     &.done {
-      background: grey;
+      background: HSLA(0, 0%, 75%, 1);
     }
-
   }
+}
+
+a {
+  color: #900;
+  text-decoration: none;
+}
+
+a:hover {
+  color: red;
+//  position: relative;
+}
+
+a[title]:hover:after {
+  content: attr(title);
+  text-align: center;
+  color: white;
+  background-color:black;
+  padding: 5px 20px 5px 20px;
 
 
 }
@@ -57,6 +75,7 @@ form {
     height: 40px;
     border-radius: 20px;
     outline-style: none;
+    text-indent: 15px;
   }
   button{
     background-color: HSLA(224, 79%, 75%, 1);
@@ -68,7 +87,7 @@ form {
 }
 
 .remove{
-  background: HSLA(346, 82%, 63%, 1);
+  background: transparent;
   border: none;
   outline-style: none;
   float: right;
