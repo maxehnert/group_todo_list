@@ -65,8 +65,7 @@ form {
     height: 62px;
     outline-style: none;
   }
-<<<<<<< HEAD
-=======
+
 }
 
 .remove{
@@ -75,5 +74,13 @@ form {
   outline-style: none;
   float: right;
   height: 30px;
->>>>>>> Dev
-}
+
+
+
+     &:hover{
+       background-color: blue;
+       animation-duration: 3s;
+       animation-delay: 2s;
+       animation-iteration-count: infinite;
+      }
+     }

@@ -1,8 +1,10 @@
+var my_server = 'http://tiy-atl-fe-server.herokuapp.com/collections/mandmlist2';
+
+
 var ToDo= function (options){
-  options=options || {};
+  options = options || {};
   this.task= options.task || '';
-  this.elem=options.elem;
-  this.done=false;
+  this.done = 'false';
 //  this.icon = options.icon;
   this.status = options.status || 'incomplete';
   this.check = function(){
@@ -17,6 +19,14 @@ var todo_list = [];
 var task_template = $('#task_items').html();
 var rendered = _.template(task_template);
 
+$.getJSON(my_server).done( function(data){
+todo_list = data;
+    _.each(todo_list, function (item){
+
+       $('#todoList', 'todo_list').prepend(rendered(item));
+    });
+});
+
 var task, contents;
 
 
@@ -26,12 +36,12 @@ var task, contents;
 // });
 
 
+
 $('#sendMessage').on('submit', function (event){
   event.preventDefault(); //wont refresh page
     //Grab the Task Value
-
+var self = this;
     contents = $('#text').val() + '<button class="remove">x</button>';
-
 
 
 //     var text = $('#text').val() + '<button>x</button>';
@@ -42,32 +52,40 @@ $('#sendMessage').on('submit', function (event){
 //
 $('ul').on('click','button' , function(el){
     $(this).parent().remove();
-    var q = $('#todoList li').length -0;
-    $('#counter').html(q);
+
+var q = $('#todoList li').length - 0;
+$('#counter').html(q);
+
 });
 
-      // Create a new todo list
-    task = new ToDo ({
-      task: contents,
-      //image: icon,
-      elem: $(rendered({task: contents}))[0]
-
-    });
+task = new ToDo({
+   task: contents
 
 
-    todo_list.push(task);
-    //show our task on the page
-    $('#todoList').append(task.elem);
-  //  $('li').append(icon);
+ });
 
 
-      //reset form
-      $(this)[0].reset();
+
+$.ajax({
+    type: 'POST',  //post request to the server
+    url: my_server, // what url it will be
+    data: task  //the data we are sending
+  }).done( function (data){
+    // Add to my todo_list
+    todo_list.push(data);
+
+    // Show our task on the page
+    $('#todoList').append(rendered(data));
+
+    // Reset my form
+    $(self)[0].reset();
 
 var q = $('#todoList li').length;
 $('#counter').html(q);
-});
 
+   });
+
+});
 
 // Manaage ToDo Items
 var todo_modifier;
@@ -75,25 +93,40 @@ var todo_modifier;
 $('#todoList').on('click', 'li', function(event){
     event.preventDefault();
 
-  todo_modifier = _.findWhere(todo_list, {elem: $(this)[0] });
+  var myID = $(this).attr('id');
 
-  if(todo_modifier.done) {
-    todo_modifier.done = false;
-      $(this).removeClass('done');
+  todo_modifier = _.findWhere(todo_list, { _id: myID });
 
-    var w = $('#todoList .done').length - 0;
-    $('#counterdone').html(w);
-  }
-  else{
-  todo_modifier.done = true;
+    if (todo_modifier.done == 'true') {
+    todo_modifier.done = 'false';
+    $(this).removeClass('done');
 
+var w = $('#todoList .done').length - 0;
+$('#counterdone').html(w);
+
+
+  } else {
+    todo_modifier.done = 'true';
     $(this).addClass('done');
 
-    var w = $('#todoList .done').length;
+
+
+var w = $('#todoList .done').length;
     $('#counterdone').html(w);
 
     $('delete').removeClass();
-  }
 
+}
+$.ajax ({
+type: 'PUT',
+url: my_server + "/" + todo_modifier._id,
+data: todo_modifier
+});
+
+
+// $.ajax ({
+//   type: 'DELETE',
+//   url: my_server + "/" + todo_modifier._id
+// });
 
 });
