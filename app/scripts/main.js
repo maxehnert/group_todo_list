@@ -1,4 +1,4 @@
-var my_server = 'http://tiy-atl-fe-server.herokuapp.com/collections/mandmlist3';
+var my_server = 'http://tiy-atl-fe-server.herokuapp.com/collections/mandmlist4';
 
 
 var ToDo= function (options){
@@ -30,16 +30,14 @@ todo_list = data;
 var task, contents;
 
 
-
-
-
-
+//add the note click function
 $('#sendMessage').on('submit', function (event){
   event.preventDefault(); //wont refresh page
     //Grab the Task Value
-var self = this;
-    contents = $('#text').val() + '<button class="remove">x</button>';
 
+var self = this;
+
+    contents = $('#text').val() + '<button class="remove"><img class="removeX" src="../images/cross5.png"/></button>';
 
 
 $('ul').on('click','button' , function(el){
@@ -62,6 +60,11 @@ task = new ToDo({
  });
 
 
+    //show our task on the page
+    if($('#text').val() === ''){
+      return false;
+    }
+
 
 $.ajax({
     type: 'POST',  //post request to the server
@@ -77,16 +80,18 @@ $.ajax({
     // Reset my form
     $(self)[0].reset();
 
-var q = $('#todoList li').length;
-$('#counter').html(q);
 
-   });
+    //creates the total counter
+    var q = $('#todoList li').length;
+    $('#counter').html(q);
+  });
 
 });
 
 // Manaage ToDo Items
 var todo_modifier;
 
+//click on the notes to mark them as done
 $('#todoList').on('click', 'li', function(event){
     event.preventDefault();
 
@@ -98,32 +103,25 @@ $('#todoList').on('click', 'li', function(event){
     todo_modifier.done = 'false';
     $(this).removeClass('done');
 
-var w = $('#todoList .done').length - 0;
-$('#counterdone').html(w);
+    var w = $('#todoList .done').length - 0;
+    $('#counterdone').html(w);
 
-
-  } else {
+    }
+    else {
     todo_modifier.done = 'true';
     $(this).addClass('done');
 
+    var w = $('#todoList .done').length;
 
-
-var w = $('#todoList .done').length;
     $('#counterdone').html(w);
 
     $('delete').removeClass();
 
+    }
 
-
-}
-
-$.ajax ({
-type: 'PUT',
-url: my_server + "/" + todo_modifier._id,
-data: todo_modifier
-});
-
-
-
-
+  $.ajax ({
+  type: 'PUT',
+  url: my_server + "/" + todo_modifier._id,
+  data: todo_modifier
+  });
 });
