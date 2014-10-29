@@ -6,13 +6,13 @@
 // Custom Styles
 body {
   background: #fafafa;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Signika", Helvetica, Arial, sans-serif;
   color: #333;
 }
 
-.hero-unit {
+.container {
   margin: 10px auto 0 auto;
-  width: 400px;
+  width: 600px;
   font-size: 18px;
   font-weight: 200;
   line-height: 30px;
@@ -20,12 +20,10 @@ body {
   padding: 0 60px 60px;
   h1 {
     font-size: 40px;
-    line-height: 1;
-    letter-spacing: -1px;
+    padding: 33% 0 0 33%;
+
   }
-  form {
-    margin-bottom: 25px;
-  }
+
   ul {
     margin: 0;
     padding:0;
@@ -35,7 +33,7 @@ body {
     position:relative;
     padding: 1px 22px;
     color:white;
-    background: hsla(106,66%,43%,1);
+    background: HSLA(346, 82%, 63%, 1);
     border-radius:25px;
     clear: both;
     list-style: none;
@@ -51,6 +49,20 @@ body {
 
 }
 
-.x{
-  float:right;
+form {
+  margin-bottom: 25px;
+  width: 100%;
+  input{
+    width: 85%;
+    height: 40px;
+    border-radius: 20px;
+    outline-style: none;
+  }
+  button{
+    background-color: HSLA(224, 79%, 75%, 1);
+    color: white;
+    border-radius: 50%;
+    height: 62px;
+    outline-style: none;
+  }
 }
