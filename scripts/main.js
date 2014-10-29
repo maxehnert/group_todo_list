@@ -19,59 +19,58 @@ var rendered = _.template(task_template);
 
 var task, contents;
 
-// var icon = $('<a href="#"><img src="http://f.cl.ly/items/3F2D2J201Q2F3I072632/cross5.png"></a>').load(function() {
-//   $(this).width(16).height(16).appendTo('li');
-//
-// });
 
+//add the note click function
 $('#sendMessage').on('submit', function (event){
   event.preventDefault(); //wont refresh page
     //Grab the Task Value
-    contents = $('#text').val();
+    contents = $('#text').val() + '<button class="remove"><img class="removeX" src="../images/cross5.png"/></button>';
 
-
-
-    var text = $('#text').val() + '<button>x</button>';
-    if(text.length){
-        $('<li />', {html: text}).appendTo('#todoList').append(task.elem)
-    }
-
-
-$('ul').on('click','button' , function(el){
-    $(this).parent().remove()
-});
-
-      // Create a new todo list
-    task = new ToDo ({
-      task: contents,
-      //image: icon,
-      elem: $(rendered({task: contents}))[0]
-
+    //click to remove the note and decrement the total counter
+    $('ul').on('click','button' , function(el){
+        $(this).parent().remove();
+        var q = $('#todoList li').length -0;
+        $('#counter').html(q);
     });
 
+    // Create a new todo list
+    task = new ToDo ({
+      task: contents,
+      elem: $(rendered({task: contents}))[0]
+    });
 
     todo_list.push(task);
+
+
     //show our task on the page
+    if($('#text').val() === ''){
+      return false;
+    }
+
     $('#todoList').append(task.elem);
-  //  $('li').append(icon);
+
+    //reset form
+    $(this)[0].reset();
 
 
-      //reset form
-      $(this)[0].reset();
+    //else(return false;);
 
-var q = $('#todoList li').length;
-$('#counter').html(q);
+    //creates the total counter
+    var q = $('#todoList li').length;
+    $('#counter').html(q);
 });
 
 
 // Manaage ToDo Items
 var todo_modifier;
 
+//click on the notes to mark them as done
 $('#todoList').on('click', 'li', function(event){
     event.preventDefault();
 
   todo_modifier = _.findWhere(todo_list, {elem: $(this)[0] });
 
+  //this changes the note to done and increments the done counter
   if(todo_modifier.done) {
     todo_modifier.done = false;
       $(this).removeClass('done');
