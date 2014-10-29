@@ -1,4 +1,4 @@
-var my_server = 'http://tiy-atl-fe-server.herokuapp.com/collections/mandmlist3';
+var my_server = 'http://tiy-atl-fe-server.herokuapp.com/collections/mandmlist4';
 
 
 var ToDo= function (options){
@@ -40,18 +40,7 @@ var self = this;
     contents = $('#text').val() + '<button class="remove"><img class="removeX" src="../images/cross5.png"/></button>';
 
 
-$('ul').on('click','button' , function(el){
-    $(this).parent().remove();
 
-    $.ajax ({
-      type: 'DELETE',
-      url: my_server + "/" + todo_modifier._id
-    });
-
-var q = $('#todoList li').length - 0;
-$('#counter').html(q);
-
-});
 
 task = new ToDo({
    task: contents
@@ -88,6 +77,21 @@ $.ajax({
 
 });
 
+$('ul').on('click', 'button', function(e){
+
+  console.log(e);
+    $(this).parent().remove();
+
+    $.ajax ({
+      type: 'DELETE',
+      url: my_server + "/" + todo_modifier._id,
+    });
+
+  var q = $('#todoList li').length - 0;
+  $('#counter').html(q);
+
+});
+
 // Manaage ToDo Items
 var todo_modifier;
 
@@ -106,7 +110,7 @@ $('#todoList').on('click', 'li', function(event){
     var w = $('#todoList .done').length - 0;
     $('#counterdone').html(w);
 
-    } 
+    }
     else {
     todo_modifier.done = 'true';
     $(this).addClass('done');

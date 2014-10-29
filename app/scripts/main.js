@@ -40,18 +40,7 @@ var self = this;
     contents = $('#text').val() + '<button class="remove"><img class="removeX" src="../images/cross5.png"/></button>';
 
 
-$('ul').on('click','button' , function(el){
-    $(this).parent().remove();
 
-    $.ajax ({
-      type: 'DELETE',
-      url: my_server + "/" + todo_modifier._id
-    });
-
-var q = $('#todoList li').length - 0;
-$('#counter').html(q);
-
-});
 
 task = new ToDo({
    task: contents
@@ -85,6 +74,21 @@ $.ajax({
     var q = $('#todoList li').length;
     $('#counter').html(q);
   });
+
+});
+
+$('ul').on('click', 'button', function(e){
+
+  console.log(e);
+    $(this).parent().remove();
+
+    $.ajax ({
+      type: 'DELETE',
+      url: my_server + "/" + todo_modifier._id,
+    });
+
+  var q = $('#todoList li').length - 0;
+  $('#counter').html(q);
 
 });
 
