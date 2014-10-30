@@ -21,15 +21,21 @@ body {
   background-color: HSLA(180, 38%, 62%, 1);
   h1 {
     font-size: 40px;
-    padding: 33% 0 0 33%;
-
+    padding-top: 20px;
+  text-align: center;
   }
-
+  //check mark in the title
+  .check{
+    height:50px;
+    width:45px;
+    vertical-align: bottom;
+  }
+  //contains the notes
   ul {
     margin: 0;
     padding:0;
   }
-
+  //individual notes
   li {
     position:relative;
     padding: 1px 22px;
@@ -47,7 +53,7 @@ body {
   }
 }
 
-a {
+/* a {
   color: #900;
   text-decoration: none;
 }
@@ -65,8 +71,8 @@ a[title]:hover:after {
   padding: 5px 20px 5px 20px;
 
 
-}
-
+} */
+//initial submit button and input field
 form {
   margin-bottom: 25px;
   width: 100%;
@@ -86,20 +92,26 @@ form {
   }
 
 }
-
+//this is the remove X button
 .remove{
-  background: transparent;
-  border: none;
-  outline-style: none;
-  float: right;
-  height: 30px;
+ background: transparent;
+ border: none;
+ outline-style: none;
+ float: right;
+ height: 30px;
 
-
-
-     &:hover{
-       background-color: transparent;
-       animation-duration: 3s;
-       animation-delay: 2s;
-       animation-iteration-count: infinite;
-      }
-     }
+&:hover{
+  background-color: transparent;
+  animation-duration: 3s;
+  animation-delay: 2s;
+  animation-iteration-count: infinite;
+ }
+}
+//this this the counter bar
+.completed_tasks{
+  background-color: HSLA(58, 64%, 71%, 1);
+  color:black;
+  text-align: center;
+  border-radius:25px;
+  clear: both;
+}

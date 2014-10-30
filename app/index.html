@@ -28,13 +28,13 @@
   <body>
 
   <div class="container">
-      <h1>todo √</h1>
+      <h1>todo <img src="../images/check.png" class="check"> </h1>
       <form id="sendMessage">
           <input id="text" placeholder="What do you need to do?" value="" />
           <button id="submit">Noted</button>
       </form>
       <ul id="todoList"></ul>
-      <div>Completed Tasks:
+      <div class='completed_tasks'> Completed Tasks:
         <span id='counterdone' ></span> / Total Tasks:
         <span id='counter'></span>
       </div>
@@ -43,7 +43,7 @@
 
       <script type="text/template" id="task_items">
       <% if(done == 'true') { %>
-        <li id="<%= _id %>" class='done'><%= task %></li>
+      <li id="<%= _id %>" class='done'><%= task %></li>
       <% } else { %>
         <li id="<%= _id %>" ><%= task %></li>
       <% } %>
