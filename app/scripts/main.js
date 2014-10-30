@@ -6,7 +6,6 @@ var ToDo= function (options){
   options = options || {};
   this.task= options.task || '';
   this.done = 'false';
-//  this.icon = options.icon;
   this.status = options.status || 'incomplete';
   this.check = function(){
     this.status = 'complete';
