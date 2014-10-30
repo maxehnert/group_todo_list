@@ -1,3 +1,4 @@
+//api server address
 var my_server = 'http://tiy-atl-fe-server.herokuapp.com/collections/mandmlist4';
 
 
@@ -15,13 +16,15 @@ var ToDo= function (options){
 //collections of ToDo
 var todo_list;
 
-
+//creating a template for our tasks
 var task_template = $('#task_items').html();
 var rendered = _.template(task_template);
 
+//GET request from server
 $.getJSON(my_server).done( function(data){
 
-todo_list = data;
+    //inserting the new list item into the ul
+    todo_list = data;
     _.each(todo_list, function (item){
        $('#todoList').prepend(rendered(item));
     });
@@ -29,42 +32,37 @@ todo_list = data;
 
 var task, contents;
 
-
 //add the note click function
 $('#sendMessage').on('submit', function (event){
   event.preventDefault(); //wont refresh page
     //Grab the Task Value
 
-var self = this;
+  var self = this;
 
-    contents = $('#text').val() + '<button class="remove"><img class="removeX" src="../images/cross5.png"/></button>';
+  //what is included in the li
+  contents = $('#text').val() + '<button class="remove"><img class="removeX" src="../images/cross5.png"/></button>';
 
+  task = new ToDo({
+    task: contents
+  });
 
+  //if no value is added to the input field, the submit won't work
+  if($('#text').val() === ''){
+    return false;
+  }
 
-
-task = new ToDo({
-   task: contents
-
-
- });
-
-
-    //show our task on the page
-    if($('#text').val() === ''){
-      return false;
-    }
-
-
-$.ajax({
+  //Creating the POST request to the server
+  $.ajax({
     type: 'POST',  //post request to the server
     url: my_server, // what url it will be
     data: task  //the data we are sending
   }).done( function (data){
+
     // Add to my todo_list
     todo_list.push(data);
 
-    // Show our task on the page
-    $('#todoList').append(rendered(data));
+    // Show our task on the page and appear at the top of the list
+    $('#todoList').prepend(rendered(data));
 
     // Reset my form
     $(self)[0].reset();
@@ -77,17 +75,20 @@ $.ajax({
 
 });
 
+//this is the detele button function
 $('ul').on('click', 'button', function(e){
 
-  console.log(e);
-    $(this).parent().remove();
+  //removes the li when the X is clicked
+  $(this).parent().remove();
 
-    $.ajax ({
-      type: 'DELETE',
-      url: my_server + "/" + todo_modifier._id,
-    });
+  //creates the DELETE request from the server
+  $.ajax ({
+    type: 'DELETE',
+    url: my_server + "/" + todo_modifier._id,
+  });
 
-  var q = $('#todoList li').length - 0;
+  //decriments our counter down by 1
+  var q = $('#todoList li').length -0;
   $('#counter').html(q);
 
 });
@@ -97,16 +98,17 @@ var todo_modifier;
 
 //click on the notes to mark them as done
 $('#todoList').on('click', 'li', function(event){
-    event.preventDefault();
+  event.preventDefault();
 
   var myID = $(this).attr('id');
 
   todo_modifier = _.findWhere(todo_list, { _id: myID });
 
+    //this if/else statement changes the li color when it is clicked
     if (todo_modifier.done == 'true') {
     todo_modifier.done = 'false';
     $(this).removeClass('done');
-
+    //decrements our completed counter up 1
     var w = $('#todoList .done').length - 0;
     $('#counterdone').html(w);
 
@@ -114,7 +116,7 @@ $('#todoList').on('click', 'li', function(event){
     else {
     todo_modifier.done = 'true';
     $(this).addClass('done');
-
+    //increments our completed counter down 1
     var w = $('#todoList .done').length;
 
     $('#counterdone').html(w);
@@ -123,6 +125,7 @@ $('#todoList').on('click', 'li', function(event){
 
     }
 
+  //creates PUT request to server to update 'done' status
   $.ajax ({
   type: 'PUT',
   url: my_server + "/" + todo_modifier._id,
