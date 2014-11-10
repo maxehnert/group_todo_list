@@ -39,7 +39,7 @@ $('#sendMessage').on('submit', function (event){
   var self = this;
 
   //what is included in the li
-  contents = $('#text').val() + '<button class="remove"><img class="removeX" src="../images/cross5.png"/></button>';
+  contents = $('#text').val() + '<button class="remove"><img class="removeX" src="images/cross5.png"/></button>';
 
   task = new ToDo({
     task: contents
